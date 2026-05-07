@@ -33,13 +33,10 @@ for item in yaml_data['item']:
     xml_tree.SubElement(item_element, 'pubDate').text = item['published']
 
     enclosure_element = xml_tree.SubElement(item_element, 'enclosure', {
-        url: link_prefix + item['file'],
-        type: 'audio/mpeg',
+        'url': link_prefix + item['file'],
+        'type': 'audio/mpeg',
+        'length': str(item['length']),
     })
-
-
-xml_tree.SubElement(item_element, 'enclosure').text = item['file']
-xml_tree.SubElement(item_element, 'itunes:explicit').text = 'no'
 
 output_tree = xml_tree.ElementTree(rss_element)
 output_tree.write('podcast.xml', encoding='UTF-8', xml_declaration=True)

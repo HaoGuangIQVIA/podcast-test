@@ -1,8 +1,13 @@
 name: Generate Podcast Feeds
 on: [push]
+
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: ${{ github.event.head_commit == null || !contains(github.event.head_commit.message, '[skip ci]') }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
